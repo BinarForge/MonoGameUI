@@ -1,0 +1,6 @@
+﻿<monoui>
+  <horizontal-container>
+    <text-field weight="1" bg-color="#944" text="Hello again..." text-color="#fff" />
+    <text-field weight="3" bg-color="#449" text="Down there!" text-color="#aabbee" text-align="center" />
+  </horizontal-container>
+</monoui>

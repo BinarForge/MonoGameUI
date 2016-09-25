@@ -45,10 +45,22 @@
     <Compile Include="MonoGameUI\Containers\HorizontalContainer.cs" />
     <Compile Include="MonoGameUI\Containers\UiContainer.cs" />
     <Compile Include="MonoGameUI\Containers\VerticalContainer.cs" />
+    <Compile Include="MonoGameUI\Core\Helpers\HexColor.cs" />
     <Compile Include="MonoGameUI\Core\Position.cs" />
     <Compile Include="MonoGameUI\Core\UiNode.cs" />
+    <Compile Include="MonoGameUI\Elements\Button.cs" />
     <Compile Include="MonoGameUI\Elements\TextField.cs" />
     <Compile Include="MonoGameUI\IResourceManager.cs" />
+    <Compile Include="MonoGameUI\Loader\ElementParser.cs" />
+    <Compile Include="MonoGameUI\Loader\Parsers\BaseAttributeParser.cs" />
+    <Compile Include="MonoGameUI\Loader\Parsers\ColorParser.cs" />
+    <Compile Include="MonoGameUI\Loader\Parsers\FloatParser.cs" />
+    <Compile Include="MonoGameUI\Loader\Parsers\IAttributeParser.cs" />
+    <Compile Include="MonoGameUI\Loader\Parsers\PositionParser.cs" />
+    <Compile Include="MonoGameUI\Loader\Parsers\RectangleParser.cs" />
+    <Compile Include="MonoGameUI\Loader\Parsers\TextAlignmentParser.cs" />
+    <Compile Include="MonoGameUI\Loader\Parsers\TextParser.cs" />
+    <Compile Include="MonoGameUI\Loader\UILoader.cs" />
     <Compile Include="MonoGameUI\UIManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

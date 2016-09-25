@@ -6,6 +6,7 @@ using MonoGameUI;
 using MonoGameUI.Core;
 using MonoGameUI.Containers;
 using MonoGameUI.Elements;
+using System;
 
 namespace MonoGameUi_Examples
 {
@@ -21,6 +22,8 @@ namespace MonoGameUi_Examples
 		UiContainer			_uiRoot;
 		IResourceManager    _resourceManager;
 		private	 SpriteFont _uiFont;
+
+		int                 _exampleID = 0;
 
 		public Game()
 		{
@@ -39,34 +42,50 @@ namespace MonoGameUi_Examples
 			// TODO: Add your initialization logic here
 
 			_uiManager = new UIManager(GraphicsDevice);
-			_uiRoot = new UiContainer();
-
-			_uiRoot.Position = new Position(
-				0,
-				0,
-				GraphicsDevice.PresentationParameters.Bounds.Width,
-				GraphicsDevice.PresentationParameters.Bounds.Height
-			);
-
-			var verticalContainer = new VerticalContainer();
-			verticalContainer.AppendChild(new TextField {
-				Text = "Hello top container!",
-				TextAlignment = TextAlignment.MiddleCenter,
-				BgColor = Color.Maroon,
-				TextColor = Color.GreenYellow,
-				Weight = 25
-			});
-			verticalContainer.AppendChild(new TextField {
-				Text = "Hello bottom container...",
-				TextAlignment = TextAlignment.MiddleCenter,
-				BgColor = Color.CadetBlue,
-				TextColor = Color.Wheat,
-				Weight = 75
-			});
-			_uiRoot.AppendChild(verticalContainer);
-			_uiManager.SetRootNode(_uiRoot);
+			SetupExample(1);
 			
 			base.Initialize();
+		}
+
+		private void SetupExample(int v)
+		{
+			if (_exampleID == v)
+				return;
+
+			_exampleID = v;
+
+			if(v == 1) {
+				_uiRoot = new UiContainer();
+
+				_uiRoot.Position = new Position(
+					0,
+					0,
+					GraphicsDevice.PresentationParameters.Bounds.Width,
+					GraphicsDevice.PresentationParameters.Bounds.Height
+				);
+
+				var verticalContainer = new VerticalContainer();
+				verticalContainer.AppendChild(new TextField {
+					Text = "Hello top container!",
+					TextAlignment = TextAlignment.MiddleCenter,
+					BgColor = Color.Maroon,
+					TextColor = Color.GreenYellow,
+					Weight = 25
+				});
+				verticalContainer.AppendChild(new TextField {
+					Text = "Hello bottom container...",
+					TextAlignment = TextAlignment.MiddleCenter,
+					BgColor = Color.CadetBlue,
+					TextColor = Color.Wheat,
+					Weight = 75
+				});
+				_uiRoot.AppendChild(verticalContainer);
+				_uiManager.SetRootNode(_uiRoot);
+				_uiManager.Initialise();
+			}
+			else if(v == 2) {
+				_uiManager.Load("Content\\ui_test.xml");
+			}
 		}
 
 		/// <summary>
@@ -82,7 +101,7 @@ namespace MonoGameUi_Examples
 			_resourceManager = new ResourceManager(GraphicsDevice, _uiFont);
 			_resourceManager.Initialise();
 			_uiManager.Setup(_resourceManager);
-			_uiRoot.Initialise(_uiManager);
+			_uiManager.Initialise();
 			// TODO: use this.Content to load your game content here
 		}
 
@@ -106,6 +125,10 @@ namespace MonoGameUi_Examples
 				Exit();
 
 			// TODO: Add your update logic here
+			if (Keyboard.GetState().IsKeyDown(Keys.D1))
+				SetupExample(1);
+			else if (Keyboard.GetState().IsKeyDown(Keys.D2))
+				SetupExample(2);
 
 			base.Update(gameTime);
 		}

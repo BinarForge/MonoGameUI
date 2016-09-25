@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using MonoGameUI.Containers;
 using MonoGameUI.Core;
+using MonoGameUI.Loader;
+using System.IO;
 
 namespace MonoGameUI
 {
@@ -7,6 +10,7 @@ namespace MonoGameUI
 	{
 		private INode _rootNode;
 		private IResourceManager _resources;
+		private GraphicsDevice _graphicsDevice;
 
 		public void SetRootNode(INode rootNode)
 		{
@@ -40,6 +44,23 @@ namespace MonoGameUI
 
 		public UIManager(GraphicsDevice graphicsDevice)
 		{
+			_graphicsDevice = graphicsDevice;
+		}
+
+		public bool Load(string uiFilePath)
+		{
+			var builder = new UILoader<UiContainer>();
+			var sr = new StreamReader(File.OpenRead(uiFilePath));
+			try {
+				_rootNode = builder.FromXml(sr.ReadToEnd());
+				_rootNode.Position = new Position(0, 0, _graphicsDevice.PresentationParameters.Bounds.Width, _graphicsDevice.PresentationParameters.Bounds.Height);
+				Initialise();
+			}
+			catch {
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

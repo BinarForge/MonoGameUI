@@ -19,3 +19,6 @@
 /processorParam:TextureFormat=Compressed
 /build:ui_font.spritefont
 
+#begin ui_test.xml
+/copy:ui_test.xml
+
