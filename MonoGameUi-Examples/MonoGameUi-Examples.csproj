@@ -41,6 +41,7 @@
     <StartupObject>MonoGameUi_Examples.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ExampleNavigation.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

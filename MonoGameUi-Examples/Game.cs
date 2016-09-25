@@ -17,6 +17,8 @@ namespace MonoGameUi_Examples
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
+		protected int SCREEN_WIDTH;
+		protected int SCREEN_HEIGHT;
 
 		UIManager			_uiManager;
 		UiContainer			_uiRoot;
@@ -24,6 +26,7 @@ namespace MonoGameUi_Examples
 		private	 SpriteFont _uiFont;
 
 		int                 _exampleID = 0;
+		ExampleNavigation   _navigation;
 
 		public Game()
 		{
@@ -40,10 +43,12 @@ namespace MonoGameUi_Examples
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
+			SCREEN_WIDTH = GraphicsDevice.PresentationParameters.Bounds.Width;
+			SCREEN_HEIGHT = GraphicsDevice.PresentationParameters.Bounds.Height;
 
 			_uiManager = new UIManager(GraphicsDevice);
 			SetupExample(1);
-			
+
 			base.Initialize();
 		}
 
@@ -60,8 +65,8 @@ namespace MonoGameUi_Examples
 				_uiRoot.Position = new Position(
 					0,
 					0,
-					GraphicsDevice.PresentationParameters.Bounds.Width,
-					GraphicsDevice.PresentationParameters.Bounds.Height
+					SCREEN_WIDTH,
+					SCREEN_HEIGHT
 				);
 
 				var verticalContainer = new VerticalContainer();
@@ -86,6 +91,8 @@ namespace MonoGameUi_Examples
 			else if(v == 2) {
 				_uiManager.Load("Content\\ui_test.xml");
 			}
+
+			_navigation?.Set(v);
 		}
 
 		/// <summary>
@@ -102,6 +109,9 @@ namespace MonoGameUi_Examples
 			_resourceManager.Initialise();
 			_uiManager.Setup(_resourceManager);
 			_uiManager.Initialise();
+
+			_navigation = new ExampleNavigation();
+			_navigation.Initialise(_uiManager, SCREEN_WIDTH, SCREEN_HEIGHT);
 			// TODO: use this.Content to load your game content here
 		}
 
@@ -144,6 +154,7 @@ namespace MonoGameUi_Examples
 			// TODO: Add your drawing code here
 			spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 			_uiManager.Draw(spriteBatch);
+			_navigation.Draw(spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);

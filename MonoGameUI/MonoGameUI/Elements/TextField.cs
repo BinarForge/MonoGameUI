@@ -31,7 +31,10 @@ namespace MonoGameUI.Elements
 				_textPosition = new Vector2(Position.Left, Position.Top);
 			else if (TextAlignment == TextAlignment.MiddleCenter) {
 				var textSize = _font.MeasureString(Text);
-				_textPosition = new Vector2(Position.Left + (Position.Right - textSize.X) * 0.5f, Position.Top + (Position.Bottom - textSize.Y) * 0.5f);
+				_textPosition = new Vector2(
+					Position.Left + (Position.Right - textSize.X) * 0.5f, 
+					Position.Top + (Position.Bottom - Position.Top - textSize.Y) * 0.5f
+				);
 			}
 		}
 
